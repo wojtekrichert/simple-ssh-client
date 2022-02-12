@@ -6,7 +6,7 @@ from paramiko.client import SSHClient as ParamikoSSHClient
 from paramiko.ssh_exception import NoValidConnectionsError
 from retry.api import retry_call
 
-from schema import ConnectionSettings
+from simple_ssh_client.schema import ConnectionSettings
 
 logger = logging.getLogger(__package__)
 

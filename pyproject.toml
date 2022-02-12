@@ -1,15 +1,12 @@
 [tool.poetry]
 name = "simple-ssh-client"
-version = "0.1.2"
+version = "1.0.0"
 description = "Simple SSH client based on Paramiko"
 authors = ["Wojciech Richert <33549959+wojtekrichert@users.noreply.github.com>"]
 keywords = ["ssh", "paramiko"]
 readme = "README.md"
 homepage = "https://github.com/wojtekrichert/simple-ssh-client"
 repository = "https://github.com/wojtekrichert/simple-ssh-client"
-packages = [
-    { include = "ssh_client.py" }
-]
 
 [tool.poetry.dependencies]
 python = "^3.9"

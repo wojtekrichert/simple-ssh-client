@@ -6,8 +6,8 @@ import pytest
 from paramiko.ssh_exception import NoValidConnectionsError
 from pydantic import SecretStr
 
-from schema import ConnectionSettings
-from ssh_client import SSHClient, SshExecutionException
+from simple_ssh_client.client import SSHClient, SshExecutionException
+from simple_ssh_client.schema import ConnectionSettings
 
 
 class ConnectionSettingsFactory(factory.Factory):
@@ -52,11 +52,11 @@ class TestSSHClient:
             "pkey": ssh_client.settings.private_key.get_secret_value(),
         }
 
-    @mock.patch("ssh_client.ParamikoSSHClient")
-    @mock.patch("ssh_client.paramiko.AutoAddPolicy", return_value="test")
-    @mock.patch("ssh_client.retry_call")
+    @mock.patch("simple_ssh_client.client.ParamikoSSHClient")
+    @mock.patch("simple_ssh_client.client.paramiko.AutoAddPolicy", return_value="test")
+    @mock.patch("simple_ssh_client.client.retry_call")
     @mock.patch(
-        "ssh_client.SSHClient._SSHClient__prepare_credentials",
+        "simple_ssh_client.client.SSHClient._SSHClient__prepare_credentials",
         return_value="test",
     )
     def test_connect(self, _, retry_mock, policy_mock, paramiko_mock, ssh_client):
@@ -81,7 +81,7 @@ class TestSSHClient:
             logger=None,
         )
 
-    @mock.patch("ssh_client.SSHClient.connect")
+    @mock.patch("simple_ssh_client.client.SSHClient.connect")
     def test_execute(self, connect_mock, ssh_client):
         stdout = MagicMock()
         stdout.channel.recv_exit_status = MagicMock(return_value=0)
